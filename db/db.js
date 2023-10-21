@@ -29,7 +29,6 @@ module.exports = class JsonDb {
 
     // get all data
     getAll() {
-        console.log(this.data);
         return this.data;
     }
 
@@ -40,6 +39,27 @@ module.exports = class JsonDb {
             title,
             text
         });
+    }
+
+    //delete specific item
+    delete(id) {
+        for (let idx = 0; idx < this.data.length; idx++) {
+            if (this.data[idx].id === id) {
+                this._remove(idx);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // remove specific item from this.data
+    _remove(idx) {
+        //swap idx item to the end (perf consideration)
+        const temp = this.data[-1];
+        this.data[-1] = this.data[idx];
+        this.data[idx] = temp;
+        // remove
+        this.data.pop();
     }
 
     //write data to file
