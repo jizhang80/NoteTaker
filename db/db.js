@@ -54,12 +54,7 @@ module.exports = class JsonDb {
 
     // remove specific item from this.data
     _remove(idx) {
-        //swap idx item to the end (perf consideration)
-        const temp = this.data[-1];
-        this.data[-1] = this.data[idx];
-        this.data[idx] = temp;
-        // remove
-        this.data.pop();
+        this.data.splice(idx,1);
     }
 
     //write data to file
